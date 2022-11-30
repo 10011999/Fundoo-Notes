@@ -1,33 +1,39 @@
-import React, { useState } from 'react';
-import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { Text, View, StyleSheet } from 'react-native';
 //import AuthStack from '../navigation/AuthStack';
-import Registration from './Registration';
 import CustomButton from '../component/CustomButton';
+import CustomButText from '../component/CustomButText';
 import TextVal from '../component/TextVal';
+import { AuthContext } from '../navigation/AuthProvider';
+//import ResetPassword from './ResetPassword';
 
 const Login = ({ navigation }) => {
-  const [gmail, setUserInput] = useState(' ');
+  const [email, setUserInput] = useState(' ');
   const [error, setError] = React.useState({});
-  const [pwd, setPwd] = React.useState('');
+  const [password, setPwd] = React.useState('');
+
+  const { login } = useContext(AuthContext);
 
   const validation = () => {
+    let regxEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    let regxPassword = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
     const array = {};
     let valid = true;
-    if (gmail === '' ) {
+    if (email === '' || !regxEmail.test(email)) {
       array.user = 'Please Enter valid gmail';
       valid = false;
     }
 
-    if (gmail.length < 9 && gmail.length > 1 ) {
+    if (email.length < 9 && email.length > 1 ) {
       array.user = 'Please enter gmail more than 6 character';
       valid = false;
     }
 
-    if (pwd === '') {
+    if (password === '' || !regxPassword.test(password)) {
       array.pwd = 'Please Enter valid password';
       valid = false;
     }
-    if (pwd.length < 6 && pwd.length > 1) {
+    if (password.length < 6 && password.length > 1) {
       array.pwd = 'Please enter password more than 6 character';
       valid = false;
     }
@@ -38,15 +44,22 @@ const Login = ({ navigation }) => {
   const onSignIn = () => {
     if (validation()) {
       console.log('Login successfully');
-      navigation.navigate('Registration');
+      navigation.navigate('HomePage');
+      login(email,password);
     }
   };
+  const onForgotPass = ()=>{
+    navigation.navigate('ResetPassword');
+  };
+  const onRegistrationPage = ()=>{
+    navigation.navigate('Registration');
+  };
 
-  console.log( gmail);
+  console.log( email);
   return (
     <View style={styles.mainBody}>
       <View style={styles.subView}>
-        <Text style={styles.text}> Fun-Do Notes </Text>
+        <Text style={styles.title}> Fun-Do Notes </Text>
       </View>
       <View >
         <Text style={{ fontWeight: 'bold' }}>Gmail or Phone</Text>
@@ -54,32 +67,24 @@ const Login = ({ navigation }) => {
       <View>
         <TextVal
           placeholder="Enter Gmail"
-          setValue={text => setUserInput(text)} value={gmail} />
-        <Text style={{ color: 'red', alignSelf: 'center', margin: 5 }}>{error.user}</Text>
+          setValue={text => setUserInput(text)} value={email} />
+        <Text style={{ color: 'red'}}>{error.user}</Text>
       </View>
       <View>
         <TextVal
           placeholder="Enter Password"
-          setValue={text => setPwd(text)} value={pwd} />
-        <Text style={{ color: 'red', alignSelf: 'center', margin: 5 }}>{error.pwd}</Text>
+          setValue={text => setPwd(text)} value={password} />
+        <Text style={{ color: 'red', margin: 5 }}>{error.pwd}</Text>
+        <CustomButton MyText="LogIn" buttonOnClick={()=>{onSignIn();}} />
       </View>
-      <Text style={{ marginBottom: 50 }}>App will share your name gmail address and details</Text>
-      <View>
-        <CustomButton MyText="LogIn" buttonOnClick={onSignIn} />
+        <View>
+        <CustomButText ButtonText="Create Account" buttonClick={()=>{onRegistrationPage();}}/>
+        </View>
+        <View>
+        <CustomButText ButtonText="Forgot Password?" buttonClick={onForgotPass}/>
       </View>
       <View>
-        <TouchableOpacity
-          onPress={() => {
-            console.log();
-          }}>
-          <Text style={{ color: '#635b30', textAlign: 'center', marginBottom: 15 }}>Create account?</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            console.log('');
-          }}>
-          <Text style={{ color: '#635b30', textAlign: 'center' }}>Forgot Password?</Text>
-        </TouchableOpacity>
+      <CustomButText ButtonText="Forgot Password?" buttonClick={onForgotPass}/>
       </View>
     </View>
   );
@@ -94,18 +99,15 @@ const styles = StyleSheet.create({
   subView: {
     width: '100%',
     height: 50,
-    backgroundColor: 'gold',
+   // backgroundColor: 'gold',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
   },
-  text: {
-    fontSize: 25,
+  title: {
+    fontSize: 30,
     fontWeight: 'bold',
-    color: '#ffffff',
-  },
-  textIn: {
-
+    color: '#00ffff',
   },
 });
 export default Login;

@@ -13,7 +13,7 @@ const CustomButton = ({ MyText, buttonOnClick }) => {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#5e531a',
+    backgroundColor: '#00ffff',
     alignItems: 'center',
     padding: 9,
     margin: 10,

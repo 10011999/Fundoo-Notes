@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@react-native-firebase/analytics": "^16.4.6",
+    "@react-native-firebase/app": "^16.4.6"
+  }
+}

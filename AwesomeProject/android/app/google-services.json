@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "564054351018",
+    "project_id": "fundonote-ae3c1",
+    "storage_bucket": "fundonote-ae3c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:564054351018:android:b4089753dc2f84a52e04d3",
+        "android_client_info": {
+          "package_name": "com.awesomeproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "564054351018-5onapmmn8vf1p9ep5b6v9ocpk4haiofs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbo1iqiI_tdKHp3Pi4z2Xpwj8_k2wmHpE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "564054351018-5onapmmn8vf1p9ep5b6v9ocpk4haiofs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

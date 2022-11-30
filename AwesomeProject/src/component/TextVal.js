@@ -17,18 +17,15 @@ const TextVal = ({ placeholder, setValue, value, password }) => {
 };
 const styles = StyleSheet.create({
 input: {
-    marginTop: 5,
+    marginTop: 10,
     padding: 10,
     width: '100%',
-    boborderColor: 'black',
-    textAlign: 'center',
+    borderColor: 'black',
     fontSize: 18,
     color: 'black',
-    rderWidth: 2,
-    justifyContent: 'center',
-    marginBottom: 20,
     backgroundColor: 'white',
     borderWidth: 1,
+    marginBottom: 5,
 },
 });
 

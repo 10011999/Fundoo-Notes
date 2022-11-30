@@ -1,102 +1,94 @@
-import React,{useState} from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Text,
   View,
   StyleSheet,
-  TextInput,
-  TouchableOpacity,
 } from 'react-native';
 import CustomButton from '../component/CustomButton';
+import TextVal from '../component/TextVal';
+import CustomButText from '../component/CustomButText';
+import { AuthContext } from '../navigation/AuthProvider';
 
-const Registration = () => {
-  const [details, setUserInput] = useState(' ');
+const Registration = ({ navigation }) => {
+  const [name,setInputFirst] = useState(' ');
+  const [Last,setInputLast] = useState(' ');
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [confirmPassword, setConfitmPassword] = useState();
+
+  const {register} = useContext(AuthContext);
+
+  const onLogin = ()=>{
+    navigation.navigate('Login');
+  };
+  // const onHome = () =>{
+  // register(email,password);
+  // navigation.navigate('HomePage');
+  // };
+
+
   return (
     <View style={styles.mainBody}>
       <View style={styles.subView}>
-        <Text style={styles.text}> Registration Form </Text>
+        <Text style={styles.title}> Registration Form </Text>
       </View>
       <View>
         <Text style={{ fontWeight: 'bold' }}>Name</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="First "
-          onChangeText={(value) => setUserInput(value)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Last "
-          onChangeText={(value) => setUserInput(value)}
-        />
+        <TextVal
+          placeholder="First"
+          setValue={text => setInputFirst(text)} />
+        <TextVal
+          placeholder="Last"
+          setValue={text => setInputLast(text)} />
       </View>
       <View>
         <Text style={{ fontWeight: 'bold' }}> Choose your username</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="GmailId "
-          onChangeText={(value) => setUserInput(value)}
-        />
+        <TextVal
+          placeholder="EmailId"
+          setValue={text => setEmail(text)} value={email} />
         <Text style={{ color: 'red', marginBottom: 20 }}>
           I prefer to use my current email address
         </Text>
       </View>
       <View>
         <Text style={{ fontWeight: 'bold' }}>Create a password</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="password "
-          onChangeText={(value) => setUserInput(value)}
-        />
-        <Text style={{ fontWeight: 'bold' }}>Confirm your password</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="password"
-          onChangeText={(value) => setUserInput(value)}
-        />
+        <TextVal
+          //value={userInput}
+          placeholder="Password"
+          setValue={text => setPassword(text)} value={password} />
       </View>
       <View>
-        <CustomButton MyText="REGISTER"  />
+        <Text style={{ fontWeight: 'bold' }}>Confirm your password</Text>
+        <TextVal
+          placeholder="Password"
+          setValue={text => setConfitmPassword(text)} value={confirmPassword} />
       </View>
-        <TouchableOpacity
-          onPress={() => {
-            console.log('');
-          }}>
-          <Text style={{ color: 'blue' }}>Already Register? Login</Text>
-        </TouchableOpacity>
+      <View>
+        <CustomButton MyText="REGISTER" buttonOnClick={()=> register(email,password)}/>
       </View>
+      <CustomButText ButtonText="Already Register? Login" buttonClick={onLogin} />
+    </View>
   );
 };
 const styles = StyleSheet.create({
   mainBody: {
     flex: 1,
-    padding: 5,
     justifyContent: 'center',
+    alignContent: 'center',
+    padding: 10,
+    backgroundColor: 'white',
   },
   subView: {
-    width: '100%',
     height: 50,
-    backgroundColor: 'gold',
+    //backgroundColor: 'gold',
     justifyContent: 'center',
   },
-  text: {
-    fontSize: 25,
+  title: {
+    fontSize: 30,
     fontWeight: 'bold',
-    color: '#ffffff',
+    color: '#00ffff',
     justifyContent: 'center',
     textAlign: 'center',
-  },
-  input: {
-    marginTop: 5,
-    padding: 10,
-    width: '100%',
-    boborderColor: 'black',
-    textAlign: 'center',
-    fontSize: 14,
-    color: 'black',
-    rderWidth: 2,
-    justifyContent: 'center',
-    marginBottom: 20,
-    backgroundColor: 'white',
-    borderWidth: 1,
   },
 });
 export default Registration;
