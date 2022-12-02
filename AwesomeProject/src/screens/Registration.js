@@ -21,11 +21,6 @@ const Registration = ({ navigation }) => {
   const onLogin = ()=>{
     navigation.navigate('Login');
   };
-  // const onHome = () =>{
-  // register(email,password);
-  // navigation.navigate('HomePage');
-  // };
-
 
   return (
     <View style={styles.mainBody}>

@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState,useContext} from 'react';
 import {
   Text,
   View,
   StyleSheet,
-  TextInput,
 } from 'react-native';
 import CustomButton from '../component/CustomButton';
 import TextVal from '../component/TextVal';
+import { AuthContext } from '../navigation/AuthProvider';
 
 
 const ResetPassword = ({ navigation }) => {
-  const [setUserInput] = useState(' ');
+  const { forget } = useContext(AuthContext);
+  const [email,setUserInputEmail] = useState(' ');
 
-  const onBackPage = () => {
-    navigation.navigate('Login');
-  };
+  // const onBackPage = () => {
+  //   navigation.navigate('Login');
+  // };
   return (
     <View style={styles.mainBody} >
       <View style={styles.subView}>
@@ -22,14 +23,14 @@ const ResetPassword = ({ navigation }) => {
       </View>
       <View>
         <TextVal
-          placeholder="Enter Password"
-          setValue={text => setUserInput(text)} />
+          placeholder="Enter Email"
+          setValue={text => setUserInputEmail(text)} value={email}/>
       </View>
       <View>
-        <CustomButton MyText={'Next'} buttonOnClick={() => { console.log(''); }} />
+        <CustomButton MyText={'Change Password'} buttonOnClick={() => {forget(email)}} />
       </View>
       <View>
-        <CustomButton MyText={'Back to Sign in'} buttonOnClick={() => { onBackPage(); }}
+        <CustomButton MyText={'Back to Sign in'} buttonOnClick={() => { navigation.navigate('Login'); }}
         />
       </View>
     </View>

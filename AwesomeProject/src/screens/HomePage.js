@@ -1,22 +1,22 @@
-import React from 'react';
-import { Text, View, StyleSheet ,useContext} from 'react-native';
+import React,{useContext} from 'react';
+import { Text, View, StyleSheet} from 'react-native';
 import CustomButton from '../component/CustomButton';
-//import { AuthContext } from '../navigation/AuthProvider';
+import { AuthContext } from '../navigation/AuthProvider';
+//import { createDrawerNavigator } from '@react-navigation/drawer';
 
-const HomePage = ({ navigation }) => {
-   // const { logout } = useContext(AuthContext);
-    const onSignIn = () => {
-        //logout();
-        navigation.navigate('Login');
-    };
+const HomePage = ({navigation}) => {
+const {user,logout} = useContext(AuthContext);
+const onLogout = () => {
+    logout();
+    //navigation.navigate('Login');
+  };
     return (
         <View style={styles.mainBody}>
-            <View style={styles.subView} />
+            <View style={styles.subView} >
+            <Text style={styles.title}> Welcome Home Page </Text>
+            </View>
             <View>
-                <Text>Welcome </Text>
-                <View>
-                <CustomButton MyText="Sign Out" buttonOnClick={()=>{onSignIn();}} />
-                </View>
+                <CustomButton MyText="Sign Out" buttonOnClick={()=>{onLogout();}} />
             </View>
         </View>
 
@@ -38,5 +38,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 10,
     },
+    title: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        color: '#00ffff',
+      },
 });
 export default HomePage;

@@ -1,18 +1,19 @@
-import React, { useContext, useState } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import React, {useContext, useState} from 'react';
+import {Text, View, StyleSheet} from 'react-native';
 //import AuthStack from '../navigation/AuthStack';
 import CustomButton from '../component/CustomButton';
 import CustomButText from '../component/CustomButText';
 import TextVal from '../component/TextVal';
-import { AuthContext } from '../navigation/AuthProvider';
-//import ResetPassword from './ResetPassword';
+import {AuthContext} from '../navigation/AuthProvider';
 
-const Login = ({ navigation }) => {
+const Login = ({navigation}) => {
   const [email, setUserInput] = useState(' ');
-  const [error, setError] = React.useState({});
-  const [password, setPwd] = React.useState('');
+  const [error, setError] = useState(' ');
+  const [password, setPwd] = useState('');
 
-  const { login } = useContext(AuthContext);
+  const {login,forget,googleSignIn} = useContext(AuthContext);
+  // const {forget} = useContext(AuthContext);
+  // const {googleSignIn} = useContext(AuthContext);
 
   const validation = () => {
     let regxEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -24,7 +25,7 @@ const Login = ({ navigation }) => {
       valid = false;
     }
 
-    if (email.length < 9 && email.length > 1 ) {
+    if (email.length < 9 && email.length > 1) {
       array.user = 'Please enter gmail more than 6 character';
       valid = false;
     }
@@ -45,50 +46,66 @@ const Login = ({ navigation }) => {
     if (validation()) {
       console.log('Login successfully');
       navigation.navigate('HomePage');
-      login(email,password);
+      login(email, password);
     }
   };
-  const onForgotPass = ()=>{
+  const onForgetPass = () => {
+    forget(email);
     navigation.navigate('ResetPassword');
   };
-  const onRegistrationPage = ()=>{
+  const onRegistrationPage = () => {
     navigation.navigate('Registration');
   };
+  const onGoogleSign = () => {
+    console.log('Hi');
+    googleSignIn();
+    console.log('Hello');
+  };
 
-  console.log( email);
+  console.log(email);
   return (
     <View style={styles.mainBody}>
       <View style={styles.subView}>
         <Text style={styles.title}> Fun-Do Notes </Text>
       </View>
-      <View >
-        <Text style={{ fontWeight: 'bold' }}>Gmail or Phone</Text>
+      <View>
+        <Text style={{fontWeight: 'bold'}}>Gmail</Text>
       </View>
       <View>
         <TextVal
           placeholder="Enter Gmail"
-          setValue={text => setUserInput(text)} value={email} />
-        <Text style={{ color: 'red'}}>{error.user}</Text>
+          setValue={text => setUserInput(text)}
+          value={email}
+        />
+        <Text style={{color: 'red'}}>{error.user}</Text>
       </View>
       <View>
         <TextVal
           placeholder="Enter Password"
-          setValue={text => setPwd(text)} value={password} />
-        <Text style={{ color: 'red', margin: 5 }}>{error.pwd}</Text>
-        <CustomButton MyText="LogIn" buttonOnClick={()=>{onSignIn();}} />
-      </View>
-        <View>
-        <CustomButText ButtonText="Create Account" buttonClick={()=>{onRegistrationPage();}}/>
-        </View>
-        <View>
-        <CustomButText ButtonText="Forgot Password?" buttonClick={onForgotPass}/>
+          setValue={text => setPwd(text)}
+          value={password}
+        />
+        <Text style={{color: 'red', margin: 5}}>{error.pwd}</Text>
+        <CustomButton MyText="LogIn" buttonOnClick={() => { onSignIn();}}
+        />
       </View>
       <View>
-      <CustomButText ButtonText="Forgot Password?" buttonClick={onForgotPass}/>
+        <CustomButText ButtonText="Google Sign In" buttonClick={onGoogleSign}
+        />
+      </View>
+      <View>
+        <CustomButText ButtonText="Create Account" buttonClick={() => {onRegistrationPage();}}
+        />
+      </View>
+      <View>
+        <CustomButText
+          ButtonText="Forgot Password?" buttonClick={() => { onForgetPass();}}
+        />
       </View>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   mainBody: {
     flex: 1,
@@ -99,7 +116,6 @@ const styles = StyleSheet.create({
   subView: {
     width: '100%',
     height: 50,
-   // backgroundColor: 'gold',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
