@@ -1,9 +1,12 @@
 import React,{useContext} from 'react';
+//import moduleName from 'module';
 import { Text, View, StyleSheet} from 'react-native';
 import CustomButton from '../component/CustomButton';
 import { AuthContext } from '../navigation/AuthProvider';
 //import { createDrawerNavigator } from '@react-navigation/drawer';
+//import { NavigationContainer } from '@react-navigation/native';
 
+//const Drawer = createDrawerNavigator();
 const HomePage = ({navigation}) => {
 const {user,logout} = useContext(AuthContext);
 const onLogout = () => {
